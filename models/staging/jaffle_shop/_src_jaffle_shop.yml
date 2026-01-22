@@ -1,0 +1,57 @@
+sources:
+  - name: jaffle_shop
+    database: workspace
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            data_type: int
+            data_tests:
+              - unique
+              - not_null
+          - name: first_name
+            data_type: varchar(255)
+          - name: last_name
+            data_type: varchar(255)
+
+      - name: orders
+        columns:
+          - name: id
+            data_type: int
+            data_tests:
+              - unique
+              - not_null
+          - name: user_id
+            data_type: int
+            data_tests:
+              - not_null
+          - name: order_date
+            data_type: date
+            data_tests:
+              - not_null
+          - name: status
+            data_type: varchar(255)
+            data_tests:
+              - not_null
+              - accepted_values:
+                  arguments:
+                    values:
+                      - returned
+                      - shipped
+                      - completed
+                      - placed
+                      - return_pending
+          - name: _etl_loaded_at
+            data_type: timestamp
+            data_tests:
+              - not_null
+        config:          
+          freshness:
+            warn_after:
+              count: 12
+              period: hour
+            error_after: 
+              count: 1
+              period: day
+          loaded_at_field: _etl_loaded_at
