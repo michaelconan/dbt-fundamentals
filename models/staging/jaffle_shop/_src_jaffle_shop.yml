@@ -1,36 +1,46 @@
 sources:
   - name: jaffle_shop
+    description: A clone of a Postgres database
     database: workspace
     schema: jaffle_shop
     tables:
       - name: customers
+        description: Raw customers data
         columns:
           - name: id
+            description: Primary key for customer record
             data_type: int
             data_tests:
               - unique
               - not_null
           - name: first_name
+            description: Customer first name
             data_type: varchar(255)
           - name: last_name
+            description: Customer last name
             data_type: varchar(255)
 
       - name: orders
+        description: Raw orders data
         columns:
           - name: id
+            description: Primary key for orders data
             data_type: int
             data_tests:
               - unique
               - not_null
           - name: user_id
+            description: Foreign key referencing customers table
             data_type: int
             data_tests:
               - not_null
           - name: order_date
+            description: Date the order was placed
             data_type: date
             data_tests:
               - not_null
           - name: status
+            description: "{{ doc('order_status') }}"
             data_type: varchar(255)
             data_tests:
               - not_null
@@ -43,6 +53,7 @@ sources:
                       - placed
                       - return_pending
           - name: _etl_loaded_at
+            description: Timestamp when the record was loaded into the warehouse
             data_type: timestamp
             data_tests:
               - not_null

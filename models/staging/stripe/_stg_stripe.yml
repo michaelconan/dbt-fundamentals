@@ -1,11 +1,14 @@
 models:
   - name: stg_stripe__payment
+    description: Payment data prepared for analysis
     columns:
       - name: payment_id
+        description: Unique identifier for payment record
         data_tests:
           - unique
           - not_null
       - name: order_id
+        description: Identifier for related order
         data_tests:
           - relationships:
               arguments:

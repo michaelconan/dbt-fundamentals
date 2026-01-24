@@ -1,20 +1,25 @@
 sources:
   - name: stripe
+    description: Payment processor source system
     database: workspace
     schema: stripe
     tables:
       - name: payment
+        description: Raw payment record data
         columns:
           - name: id
+            description: Unique identifier for payment record
             data_type: int
             data_tests:
               - unique
               - not_null
           - name: orderid
+            description: Identifier of related order
             data_type: int
             data_tests:
               - not_null
           - name: paymentmethod
+            description: "{{ doc('payment_method') }}"
             data_type: varchar(255)
             data_tests:
               - not_null
@@ -26,6 +31,7 @@ sources:
                       - bank_transfer
                       - gift_card
           - name: status
+            description: Whether payment succeeded or failed
             data_type: varchar(255)
             data_tests:
               - not_null
@@ -35,14 +41,17 @@ sources:
                       - success
                       - fail 
           - name: amount
+            description: Monetary amount of payment record
             data_type: int
             data_tests:
               - not_null
           - name: created
+            description: Date on which payment was created
             data_type: date
             data_tests:
               - not_null
           - name: _batched_at
+            description: Date and time when payment batch was loaded
             data_type: timestamp
             data_tests:
               - not_null
