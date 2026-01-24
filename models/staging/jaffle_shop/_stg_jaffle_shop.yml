@@ -1,20 +1,26 @@
 models:
   - name: stg_jaffle_shop__customers
+    description: One unique customer per record
     columns:
       - name: customer_id
+        description: Unique identifier for customer record
         data_tests:
           - unique
           - not_null
   - name: stg_jaffle_shop__orders
+    description: One unique order per record
     columns:
       - name: order_id
+        description: Unique identifier for order record
         data_tests:
           - unique
           - not_null
       - name: order_status
+        description: "{{ doc('order_status') }}"
         data_tests:
           - not_null
       - name: customer_id
+        description: Customer identifier
         data_tests:
           - relationships:
               arguments:
